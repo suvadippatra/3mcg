@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chitroghor -- Visual Studio (Customizable UI)</title>
+<title>ত্রিমূর্তি চিত্রঘর (Trimurti Chitroghor)</title>
 <meta name="description" content="Customizable website UI for Chitroghor. Edit texts and images using the Editor panel."/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg:#0f1113; --card:#0f1113; --muted:#9aa0a6; --accent:#c9a34a; --accent-2:#e3b86e;
@@ -13,6 +18,17 @@
     --ff-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     --ff-serif: Georgia, "Times New Roman", serif;
   }
+  
+  /* 3. ADDED CUSTOM CLASS FOR BANGLA TEXT */
+  .bn { font-family: 'Tiro Bangla', serif; font-weight: 400; }
+
+  /* 4. ADDED STYLES FOR SOCIAL ICONS */
+  .social-list{display:flex; gap:12px; align-items:center; list-style:none; padding:0; margin:0}
+  .social-list a{display:flex; align-items:center; justify-content:center; color:var(--muted); transition:color 0.2s}
+  .social-list a:hover{color:var(--accent)}
+  .social-list svg{width:18px; height:18px; fill:currentColor}
+  footer .social-list{justify-content:center; margin-top:5px; width:100%}
+
   /* Basic Reset */
   *{box-sizing:border-box} html,body{height:100%}
   body{
@@ -22,10 +38,14 @@
   .site{max-width:var(--maxw); margin:24px auto; padding:28px; gap:var(--gap)}
   header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px}
   .brand{display:flex; align-items:center; gap:14px}
+  
+  /* Updated logo style to support image */
   .brand .logo{
     width:58px; height:58px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.12)); border:1px solid rgba(255,255,255,0.03)
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.12)); border:1px solid rgba(255,255,255,0.03);
+    overflow: hidden; padding: 0;
   }
+  
   .brand h1{font-size:18px; margin:0; letter-spacing:0.2px}
   nav ul{list-style:none; display:flex; gap:16px; margin:0; padding:0; align-items:center}
   nav a{color:var(--muted); text-decoration:none; font-size:14px}
@@ -80,6 +100,7 @@
   .contact form{display:flex; flex-direction:column; gap:12px}
   input,textarea{background:transparent; border:1px solid rgba(255,255,255,0.06); padding:10px; border-radius:8px; color:var(--text)}
   textarea{min-height:120px; resize:vertical}
+  /* Updated Footer */
   footer{margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; align-items:center}
   /* small screens */
   @media (max-width:920px){
@@ -105,15 +126,14 @@
 </head>
 <body>
 
-<!-- SITE WRAPPER -->
 <div class="site" id="site">
   <header>
     <div class="brand">
       <div class="logo" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.04)"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <img src="logo.png" alt="Trimurti Logo" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div>
-        <h1 id="brandName">Chitroghor</h1>
+        <h1 id="brandName" class="bn">ত্রিমূর্তি চিত্রঘর</h1>
         <div class="small" id="brandTagline">Crafting Visual Stories with Precision and Imagination</div>
       </div>
     </div>
@@ -131,19 +151,27 @@
     </nav>
 
     <div class="controls">
+      <div class="social-list" style="margin-right:15px">
+        <a href="mailto:trimurti.chitroghor@gmail.com" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://twitter.com/" target="_blank" title="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21-.36.1-.74.15-1.13.15-.27 0-.54-.02-.8-.06.54 1.72 2.13 2.97 4.01 3.01-1.48 1.16-3.33 1.84-5.33 1.84-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+        <a href="https://www.instagram.com/trimurti_chitroghor/" target="_blank" title="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+        <a href="https://facebook.com/" target="_blank" title="Facebook"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m13 2h-2.5A3.5 3.5 0 0 0 12 8.5V11h-2v3h2v7h3v-7h3v-3h-3V9a1 1 0 0 1 1-1h2V5z"/></svg></a>
+        <a href="https://youtube.com/@3MCG" target="_blank" title="YouTube"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></a>
+        <a href="https://pinterest.com/" target="_blank" title="Pinterest"><svg viewBox="0 0 24 24"><path d="M9.04 21.54C10 21.83 10.97 22 12 22a10 10 0 0 0 10-10A10 10 0 0 0 12 2 10 10 0 0 0 2 12c0 4.25 2.67 7.9 6.44 9.34-.09-.79-.17-2 .04-2.88l1.22-5.2c-.3-.63-.48-1.46-.48-2.32 0-2.18 1.25-3.8 2.82-3.8 1.33 0 1.97 1 1.97 2.2 0 1.34-.84 3.35-1.28 5.21-.37 1.56.78 2.83 2.31 2.83 2.78 0 4.92-2.95 4.92-7.18 0-3.76-2.69-6.38-6.52-6.38-4.75 0-7.53 3.56-7.53 7.26 0 1.44.55 2.97 1.24 3.8.14.16.16.3.11.54l-.46 1.9c-.07.3-.24.37-.55.22-2.05-.96-3.33-3.95-3.33-6.36 0-5.18 3.75-9.94 10.8-9.94 5.67 0 10.08 4.05 10.08 9.45 0 5.64-3.53 10.18-8.43 10.18-1.65 0-3.2-.86-3.73-1.87l-1.01 3.86c-.37 1.43-1.37 3.22-2.04 4.32z"/></svg></a>
+      </div>
+
       <button class="btn" id="toggleEditorBtn" title="Open editor">Edit</button>
-      <button class="btn accent" id="exportJSON">Export JSON</button>
+      <button class="btn accent" id="exportJSON" style="display:none">Export JSON</button>
     </div>
   </header>
 
   <main id="main">
-    <!-- HERO -->
     <section class="hero" id="home">
       <div class="hero-left">
-        <h2 data-key="hero.headline">Crafting Visual Stories with Precision and Imagination</h2>
+        <h2 class="bn" data-key="hero.headline">সৃজনশীলতা এবং কল্পনার সাথে দৃশ্যমান গল্প তৈরি করা</h2>
         <p data-key="hero.subtext">A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences.</p>
         <div class="hero-ctas">
-          <button class="btn accent" onclick="scrollToId('portfolio')">Explore Portfolio</button>
+          <button class="btn accent" onclick="scrollToId('portfolio')" style="display:none">Explore Portfolio</button>
           <button class="btn" onclick="scrollToId('contact')">Hire Me</button>
         </div>
 
@@ -197,7 +225,6 @@
       </aside>
     </section>
 
-    <!-- ABOUT + SERVICES -->
     <section class="split" id="about">
       <div class="about card">
         <h3 data-key="about.headline">A Creator Shaped by Curiosity, Craft, and Discipline</h3>
@@ -228,17 +255,14 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO -->
     <section class="card" id="portfolio">
       <h3 data-key="portfolio.headline">Work That Reflects Craft and Purpose</h3>
       <p data-key="portfolio.desc">Explore a curated gallery of completed projects across design, illustration, and visual production. Each piece reflects a unique creative process.</p>
 
       <div class="portfolio-grid" id="portfolioGrid" style="margin-top:12px">
-        <!-- JS will inject projects -->
-      </div>
+        </div>
     </section>
 
-    <!-- DIVISIONS -->
     <section class="card" id="divisions">
       <h3 data-key="divisions.headline">Our Divisions</h3>
       <p data-key="divisions.desc">Three focused studios under one creative umbrella, each tailored to a different facet of visual storytelling.</p>
@@ -259,24 +283,20 @@
       </div>
     </section>
 
-    <!-- BLOG + TESTIMONIALS -->
     <section class="split" id="blog">
       <div class="card">
         <h3 data-key="blog.headline">Insights, Ideas & Creative Experiments</h3>
         <div class="cards-row" id="blogRow" style="margin-top:12px">
-          <!-- blog cards injected -->
-        </div>
+          </div>
       </div>
 
       <div class="card">
         <h3 data-key="testimonials.headline">What Clients Say</h3>
         <div id="testimonialsRow" style="margin-top:12px">
-          <!-- testimonials injected -->
-        </div>
+          </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section class="card" id="contact">
       <h3 data-key="contact.headline">Let's Build Something Meaningful</h3>
       <p data-key="contact.subtext">Reach out for freelance work, collaborations, creative consulting, or project discussions. I respond quickly and value clear, constructive communication.</p>
@@ -293,23 +313,53 @@
         </form>
 
         <aside class="card">
-          <strong>Email</strong>
-          <div class="small" id="contactEmail">hello@chitroghor.example</div>
-          <strong style="margin-top:10px; display:block">Social</strong>
-          <div class="small" id="contactSocial">@chitroghor</div>
-          <div style="margin-top:12px"><small class="small">Available for freelance, collaborations & consulting.</small></div>
-        </aside>
+            <strong>Email</strong>
+            <div class="small">
+              <a href="mailto:trimurti.chitroghor@gmail.com" style="color:inherit; text-decoration:none;">trimurti.chitroghor@gmail.com</a>
+            </div>
+          
+            <strong style="margin-top:10px; display:block">Instagram</strong>
+            <div class="small">
+              <a href="https://www.instagram.com/trimurti_chitroghor/" target="_blank" style="color:inherit; text-decoration:none;">
+                @trimurti_chitroghor
+              </a>
+            </div>
+          
+            <strong style="margin-top:10px; display:block">Phone</strong>
+            <div class="small">
+              <a href="tel:+9198760000" style="color:inherit; text-decoration:none;">
+                +91 98765 43210
+              </a>
+            </div>
+          
+            <div style="margin-top:12px"><small class="small">Available for freelance, collaborations & consulting.</small></div>
+          </aside>
       </div>
     </section>
 
-    <footer>
-      <div><span class="logo-mark">Chitroghor</span> -- <span class="small" data-key="footer.tagline">Crafting Visual Stories with Precision and Imagination</span></div>
-      <div class="small">© <span id="year"></span> Chitroghor. All rights reserved.</div>
+    <footer style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
+
+      <div>
+        <span class="logo-mark">Trimurti Chitroghor</span> -- 
+        <span class="small" data-key="footer.tagline">Crafting Visual Stories with Precision and Imagination</span>
+      </div>
+    
+      <div class="small" style="opacity: 0.6;">
+        © <span id="year"></span> Trimurti Chitroghor. All rights reserved.
+      </div>
+    
+      <div class="social-list">
+        <a href="mailto:trimurti.chitroghor@gmail.com" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://twitter.com/" target="_blank" title="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21-.36.1-.74.15-1.13.15-.27 0-.54-.02-.8-.06.54 1.72 2.13 2.97 4.01 3.01-1.48 1.16-3.33 1.84-5.33 1.84-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+        <a href="https://www.instagram.com/trimurti_chitroghor/" target="_blank" title="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+        <a href="https://facebook.com/" target="_blank" title="Facebook"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m13 2h-2.5A3.5 3.5 0 0 0 12 8.5V11h-2v3h2v7h3v-7h3v-3h-3V9a1 1 0 0 1 1-1h2V5z"/></svg></a>
+        <a href="https://youtube.com/@3MCG" target="_blank" title="YouTube"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></a>
+        <a href="https://pinterest.com/" target="_blank" title="Pinterest"><svg viewBox="0 0 24 24"><path d="M9.04 21.54C10 21.83 10.97 22 12 22a10 10 0 0 0 10-10A10 10 0 0 0 12 2 10 10 0 0 0 2 12c0 4.25 2.67 7.9 6.44 9.34-.09-.79-.17-2 .04-2.88l1.22-5.2c-.3-.63-.48-1.46-.48-2.32 0-2.18 1.25-3.8 2.82-3.8 1.33 0 1.97 1 1.97 2.2 0 1.34-.84 3.35-1.28 5.21-.37 1.56.78 2.83 2.31 2.83 2.78 0 4.92-2.95 4.92-7.18 0-3.76-2.69-6.38-6.52-6.38-4.75 0-7.53 3.56-7.53 7.26 0 1.44.55 2.97 1.24 3.8.14.16.16.3.11.54l-.46 1.9c-.07.3-.24.37-.55.22-2.05-.96-3.33-3.95-3.33-6.36 0-5.18 3.75-9.94 10.8-9.94 5.67 0 10.08 4.05 10.08 9.45 0 5.64-3.53 10.18-8.43 10.18-1.65 0-3.2-.86-3.73-1.87l-1.01 3.86c-.37 1.43-1.37 3.22-2.04 4.32z"/></svg></a>
+      </div>
     </footer>
   </main>
 </div>
 
-<!-- EDITOR PANEL -->
 <div id="editor" aria-hidden="true">
   <h3>Editor</h3>
   <div id="editorContent"></div>
@@ -324,21 +374,23 @@
 <script>
 /* ================================
    SITE CONFIGURATION OBJECT
-   Edit this object or use the Editor UI.
-   All visible content and images map to keys here.
+   11. UPDATED VALUES HERE TO MATCH YOUR BANGLA HEADINGS
    ================================ */
 const siteData = {
   nav: { home: "Home", about: "About", services: "Services", portfolio: "Portfolio", divisions: "Divisions", blog: "Blog", contact: "Contact" },
-  brand: { name: "Chitroghor", tagline: "Crafting Visual Stories with Precision and Imagination" },
+  
+  // Updated Name to Bangla
+  brand: { name: "ত্রিমূর্তি চিত্রঘর", tagline: "Crafting Visual Stories with Precision and Imagination" },
 
-  hero: { headline: "Crafting Visual Stories with Precision and Imagination", subtext: "A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences." },
+  // Updated Headline to Bangla
+  hero: { headline: "সৃজনশীলতা এবং কল্পনার সাথে দৃশ্যমান গল্প তৈরি করা", subtext: "A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences." },
 
   divisions: {
     visuals: {
       title: "Chitroghor Visuals",
       desc: "Cinematic concepts, motion-driven storytelling, and visual sequences.",
       long: "A space dedicated to cinematic ideas, dynamic compositions, and visually rich storytelling frames.",
-      img: "https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b2f9b" // small icon / thumbnail
+      img: "https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b2f9b" 
     },
     ateliers: {
       title: "Chitroghor Ateliers",
@@ -432,7 +484,6 @@ function deepSet(obj, path, value){
    Populate DOM from siteData
    =========================== */
 function bindContent(){
-  // simple mapping: elements with data-key set innerText; data-key-img set src
   document.querySelectorAll('[data-key]').forEach(el=>{
     const key = el.getAttribute('data-key');
     const val = deepGet(siteData, key);
@@ -444,10 +495,9 @@ function bindContent(){
     if(val) el.src = val;
   });
 
-  // brand
   document.getElementById('brandName').textContent = siteData.brand.name;
   document.getElementById('brandTagline').textContent = siteData.brand.tagline;
-  // featured
+  
   const featImage = deepGet(siteData,'featured.image') || '';
   document.getElementById('featuredSlide').style.backgroundImage = `url('${featImage}')`;
   document.querySelectorAll('#featuredSlide [data-key]').forEach(el=>{
@@ -455,7 +505,6 @@ function bindContent(){
     const v = deepGet(siteData, k);
     if(v) el.textContent = v;
   });
-  // portfolio
   const pg = document.getElementById('portfolioGrid');
   pg.innerHTML = '';
   (siteData.portfolio.projects || []).forEach(proj=>{
@@ -465,14 +514,12 @@ function bindContent(){
     d.innerHTML = `<div class="overlay"><div style="font-weight:700">${proj.title}</div><div style="font-size:12px">${proj.category}</div></div>`;
     pg.appendChild(d);
   });
-  // blog
   const br = document.getElementById('blogRow'); br.innerHTML='';
   (siteData.blog.posts||[]).forEach(post=>{
     const c = document.createElement('div'); c.className='blog-card';
     c.innerHTML = `<strong>${post.title}</strong><div class="small" style="margin-top:6px">${post.excerpt}</div>`;
     br.appendChild(c);
   });
-  // testimonials
   const tr = document.getElementById('testimonialsRow'); tr.innerHTML='';
   (siteData.testimonials.items||[]).forEach(t=>{
     const el = document.createElement('div'); el.className='card'; el.style.marginBottom='8px';
@@ -480,11 +527,8 @@ function bindContent(){
     tr.appendChild(el);
   });
 
-  // contact sidebar
-  document.getElementById('contactEmail').textContent = siteData.contact.email;
-  document.getElementById('contactSocial').textContent = siteData.contact.social;
+  // REMOVED AUTOMATIC OVERWRITE FOR CONTACT SIDEBAR SO YOUR CUSTOM LINKS STAY
 
-  // year
   document.getElementById('year').textContent = new Date().getFullYear();
 }
 bindContent();
@@ -497,7 +541,6 @@ const editorContent = document.getElementById('editorContent');
 
 function buildEditor(){
   editorContent.innerHTML = '';
-  // flatten keys
   function flatten(obj, prefix=''){
     let out = [];
     for(const k of Object.keys(obj)){
@@ -531,7 +574,6 @@ function buildEditor(){
   });
 }
 
-/* Editor controls */
 document.getElementById('toggleEditorBtn').addEventListener('click', ()=>{
   editorEl.style.display = editorEl.style.display === 'block' ? 'none' : 'block';
   buildEditor();
@@ -539,11 +581,9 @@ document.getElementById('toggleEditorBtn').addEventListener('click', ()=>{
 document.getElementById('closeEditor').addEventListener('click', ()=> editorEl.style.display='none');
 
 document.getElementById('applyEditor').addEventListener('click', ()=>{
-  // read inputs and update siteData
   editorContent.querySelectorAll('[data-key]').forEach(inp=>{
     const k = inp.dataset.key;
     const v = inp.value;
-    // try to parse JSON for arrays/objects
     if(v.trim().startsWith('{') || v.trim().startsWith('[')){
       try{ deepSet(siteData, k, JSON.parse(v)); } catch(e){ deepSet(siteData, k, v); }
     } else {
@@ -554,19 +594,16 @@ document.getElementById('applyEditor').addEventListener('click', ()=>{
   alert('Applied changes to page. Use Export JSON to copy configuration.');
 });
 
-/* Export JSON */
 document.getElementById('copyJSON').addEventListener('click', ()=> {
   const text = JSON.stringify(siteData, null, 2);
   navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
     alert('siteData JSON copied to clipboard.');
   }, ()=> {
-    // fallback
     const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
     alert('Copied (fallback).');
   });
 });
 
-/* Export JSON button outside as well */
 document.getElementById('exportJSON').addEventListener('click', ()=>{
   const text = JSON.stringify(siteData, null, 2);
   navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
@@ -574,290 +611,20 @@ document.getElementById('exportJSON').addEventListener('click', ()=>{
   }).catch(()=>{ const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('Copied JSON (fallback).')});
 });
 
-/* Utilities */
 function scrollToId(id){
   const el = document.getElementById(id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function fillDemo(){ document.getElementById('inputName').value = "Boss"; document.getElementById('inputEmail').value = "boss@example.com"; document.getElementById('inputMessage').value = "I'd like to discuss a brand identity project."; }
 
-/* Initial image filling for small icons if defined */
 document.querySelectorAll('[data-key-img]').forEach(imgEl=>{
   const key = imgEl.getAttribute('data-key-img');
   const val = deepGet(siteData, key);
   if(val) imgEl.src = val;
 });
 
-/* Ensure editor shows accurate keys on open */
 document.getElementById('toggleEditorBtn').addEventListener('click', ()=> { setTimeout(buildEditor, 50); });
 
 </script>
 </body>
-</html><style>/* -------- GLOBAL STYLES -------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Poppins", sans-serif;
-    background: #f7f7f7;
-    color: #222;
-    line-height: 1.6;
-}
-
-/* Container and sections */
-.section-container {
-    padding: 80px 10%;
-}
-
-h1, h2, h3 {
-    font-weight: 600;
-}
-
-p {
-    opacity: 0.85;
-}
-
-/* -------- NAVBAR -------- */
-.navbar {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(10px);
-    z-index: 999;
-}
-
-.navbar .logo {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.navbar ul {
-    display: flex;
-    list-style: none;
-}
-
-.navbar ul li {
-    margin-left: 30px;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: #222;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.navbar ul li a:hover {
-    color: #c09a2d;
-}
-
-/* -------- HERO SECTION -------- */
-#hero {
-    height: 100vh;
-    background: url('images/hero.jpg') center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding-top: 80px;
-    color: #fff;
-    position: relative;
-}
-
-.hero-content h1 {
-    font-size: 60px;
-    text-shadow: 0px 5px 20px rgba(0,0,0,0.6);
-}
-
-.hero-content p {
-    font-size: 18px;
-    margin: 20px 0;
-}
-
-.hero-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: #c09a2d;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-.hero-btn:hover {
-    background: #a48123;
-}
-
-/* -------- BRAND INTRO -------- */
-#intro .intro-grid {
-    display: flex;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.intro-card {
-    flex: 1;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.07);
-    transition: 0.3s;
-}
-
-.intro-card:hover {
-    transform: translateY(-5px);
-}
-
-/* -------- FEATURED WORKS -------- */
-#featured .work-slider {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-}
-
-.work-slide {
-    min-width: 320px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
-}
-
-.work-slide img {
-    width: 100%;
-}
-
-/* -------- ABOUT SECTION -------- */
-.about-section {
-    display: flex;
-    gap: 90px;
-    align-items: center;
-}
-
-.about-section img {
-    width: 40%;
-    border-radius: 10px;
-}
-
-.about-content {
-    width: 60%;
-}
-
-/* -------- SERVICES -------- */
-.service-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-}
-
-.service-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.07);
-    transition: 0.3s;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-/* -------- TESTIMONIALS -------- */
-.testimonial-item {
-    background: #fff;
-    padding: 25px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.07);
-}
-
-/* -------- CONTACT -------- */
-.contact-form {
-    max-width: 500px;
-}
-
-.contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 6px;
-    outline: none;
-    border: 1px solid #ccc;
-}
-
-.contact-form button {
-    padding: 12px 25px;
-    background: #c09a2d;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.3s;
-}
-
-.contact-form button:hover {
-    background: #a48123;
-}
-
-/* -------- FOOTER -------- */
-footer {
-    background: #111;
-    color: #ddd;
-    padding: 30px 10%;
-    text-align: center;
-    margin-top: 50px;
-}</style><script>// Smooth Scrolling for Navbar Links
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        window.scrollTo({
-            top: target.offsetTop - 60,
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Simple Auto Slider for Featured Works
-const slider = document.querySelector('.work-slider');
-let scrollAmount = 0;
-
-setInterval(() => {
-    scrollAmount += 350;
-    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
-        scrollAmount = 0;
-    }
-    slider.scrollTo({
-        left: scrollAmount,
-        behavior: "smooth"
-    });
-}, 3000);
-
-// Fade-in Animations on Scroll
-const fadeElements = document.querySelectorAll(".section-container");
-
-function checkFade() {
-    fadeElements.forEach(el => {
-        const position = el.getBoundingClientRect().top;
-        const screenHeight = window.innerHeight;
-        if (position < screenHeight - 100) {
-            el.style.opacity = 1;
-            el.style.transform = "translateY(0px)";
-        }
-    });
-}
-
-window.addEventListener("scroll", checkFade);
-window.addEventListener("load", checkFade);</script>
+</html>
