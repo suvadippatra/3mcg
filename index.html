@@ -1,0 +1,863 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chitroghor -- Visual Studio (Customizable UI)</title>
+<meta name="description" content="Customizable website UI for Chitroghor. Edit texts and images using the Editor panel."/>
+<style>
+  :root{
+    --bg:#0f1113; --card:#0f1113; --muted:#9aa0a6; --accent:#c9a34a; --accent-2:#e3b86e;
+    --glass: rgba(255,255,255,0.04);
+    --text:#ffffff; --maxw:1200px; --radius:12px; --gap:20px;
+    --ff-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --ff-serif: Georgia, "Times New Roman", serif;
+  }
+  /* Basic Reset */
+  *{box-sizing:border-box} html,body{height:100%}
+  body{
+    margin:0; font-family:var(--ff-sans); background:linear-gradient(180deg,#050506 0%, #0b0d0f 100%); color:var(--text);
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.45;
+  }
+  .site{max-width:var(--maxw); margin:24px auto; padding:28px; gap:var(--gap)}
+  header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px}
+  .brand{display:flex; align-items:center; gap:14px}
+  .brand .logo{
+    width:58px; height:58px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.12)); border:1px solid rgba(255,255,255,0.03)
+  }
+  .brand h1{font-size:18px; margin:0; letter-spacing:0.2px}
+  nav ul{list-style:none; display:flex; gap:16px; margin:0; padding:0; align-items:center}
+  nav a{color:var(--muted); text-decoration:none; font-size:14px}
+  nav a:hover{color:var(--text)}
+  .controls{display:flex; gap:8px; align-items:center}
+  .btn{
+    background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.06);
+    padding:8px 12px; border-radius:8px; font-size:14px; cursor:pointer;
+  }
+  .btn.accent{background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none}
+  main{display:flex; flex-direction:column; gap:28px}
+  /* Hero */
+  .hero{
+    display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:center;
+    padding:34px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03)
+  }
+  .hero-left h2{font-family:var(--ff-serif); font-size:34px; margin:0 0 12px 0}
+  .hero-left p{color:var(--muted); margin:0 0 18px 0}
+  .hero-ctas{display:flex; gap:10px}
+  .hero-ctas .btn{padding:12px 18px}
+  .hero-right{display:flex; flex-direction:column; gap:10px}
+  .card{background:var(--glass); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02)}
+  /* intro cards */
+  .intro-cards{display:flex; gap:12px; margin-top:12px}
+  .intro-card{flex:1; padding:14px; border-radius:10px; display:flex; gap:12px; align-items:flex-start}
+  .intro-card img{width:48px; height:48px; border-radius:8px; object-fit:cover}
+  .intro-card h4{margin:0;font-size:16px}
+  .intro-card p{margin:6px 0 0 0;color:var(--muted); font-size:13px}
+  /* featured slider (simple) */
+  .slider{display:flex; gap:12px; overflow:hidden; align-items:center}
+  .slide{min-width:280px; height:160px; border-radius:10px; background-size:cover; background-position:center; position:relative; flex-shrink:0}
+  .slide .meta{position:absolute; left:12px; bottom:12px; color:white; background:rgba(0,0,0,0.35); padding:8px 10px; border-radius:8px; font-size:13px}
+  /* About & Services split */
+  .split{display:grid; grid-template-columns: 1fr 1fr; gap:20px}
+  .about .quote{font-style:italic; color:var(--muted); margin-top:12px}
+  .services-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .service-card{padding:16px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02)}
+  .service-card h5{margin:0 0 8px 0}
+  .service-card p{margin:0;color:var(--muted); font-size:13px}
+  /* portfolio */
+  .portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+  .project{border-radius:10px; overflow:hidden; height:180px; background-size:cover; background-position:center; position:relative; display:flex; align-items:flex-end}
+  .project .overlay{background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6)); width:100%; padding:12px; color:white}
+  /* subdivisions */
+  .sub-grid{display:flex; gap:12px}
+  .sub{flex:1; padding:16px; border-radius:10px; background:rgba(0,0,0,0.12)}
+  /* blog & testimonials */
+  .cards-row{display:flex; gap:12px}
+  .blog-card{flex:1; padding:12px; border-radius:10px; background:var(--glass)}
+  /* contact */
+  .contact{display:grid; grid-template-columns:1fr 320px; gap:18px}
+  .contact form{display:flex; flex-direction:column; gap:12px}
+  input,textarea{background:transparent; border:1px solid rgba(255,255,255,0.06); padding:10px; border-radius:8px; color:var(--text)}
+  textarea{min-height:120px; resize:vertical}
+  footer{margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; align-items:center}
+  /* small screens */
+  @media (max-width:920px){
+    .hero{grid-template-columns: 1fr; padding:20px}
+    .site{padding:16px}
+    .split{grid-template-columns:1fr}
+    .contact{grid-template-columns:1fr}
+    nav ul{display:none}
+  }
+  /* editor panel */
+  #editor {
+    position:fixed; right:18px; top:80px; width:360px; max-height:76vh; overflow:auto; background:#0b0c0d; border:1px solid rgba(255,255,255,0.04);
+    border-radius:12px; padding:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); z-index:9999; display:none;
+  }
+  #editor h3{margin:0 0 10px 0; font-size:16px}
+  .editor-row{display:flex; gap:8px; margin-bottom:8px}
+  .editor-row input[type="text"], .editor-row textarea{flex:1; padding:8px; border-radius:8px; background:#0f1113; color:var(--text); border:1px solid rgba(255,255,255,0.03)}
+  .editor-controls{display:flex; gap:8px; margin-top:10px}
+  .small{font-size:12px; color:var(--muted)}
+  .logo-mark{font-weight:700; letter-spacing:0.6px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<!-- SITE WRAPPER -->
+<div class="site" id="site">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="rgba(255,255,255,0.04)"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <h1 id="brandName">Chitroghor</h1>
+        <div class="small" id="brandTagline">Crafting Visual Stories with Precision and Imagination</div>
+      </div>
+    </div>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#home" data-key="nav.home">Home</a></li>
+        <li><a href="#about" data-key="nav.about">About</a></li>
+        <li><a href="#services" data-key="nav.services">Services</a></li>
+        <li><a href="#portfolio" data-key="nav.portfolio">Portfolio</a></li>
+        <li><a href="#divisions" data-key="nav.divisions">Divisions</a></li>
+        <li><a href="#blog" data-key="nav.blog">Blog</a></li>
+        <li><a href="#contact" data-key="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="controls">
+      <button class="btn" id="toggleEditorBtn" title="Open editor">Edit</button>
+      <button class="btn accent" id="exportJSON">Export JSON</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <h2 data-key="hero.headline">Crafting Visual Stories with Precision and Imagination</h2>
+        <p data-key="hero.subtext">A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences.</p>
+        <div class="hero-ctas">
+          <button class="btn accent" onclick="scrollToId('portfolio')">Explore Portfolio</button>
+          <button class="btn" onclick="scrollToId('contact')">Hire Me</button>
+        </div>
+
+        <div class="intro-cards">
+          <div class="intro-card card">
+            <img src="" alt="Visuals icon" data-key-img="divisions.visuals.img">
+            <div>
+              <h4 data-key="divisions.visuals.title">Chitroghor Visuals</h4>
+              <p data-key="divisions.visuals.desc">Cinematic concepts, motion-driven storytelling, and visual sequences.</p>
+            </div>
+          </div>
+
+          <div class="intro-card card">
+            <img src="" alt="Ateliers icon" data-key-img="divisions.ateliers.img">
+            <div>
+              <h4 data-key="divisions.ateliers.title">Chitroghor Ateliers</h4>
+              <p data-key="divisions.ateliers.desc">Hand-crafted illustrations, sketch studies, and character art.</p>
+            </div>
+          </div>
+
+          <div class="intro-card card">
+            <img src="" alt="Designs icon" data-key-img="divisions.designs.img">
+            <div>
+              <h4 data-key="divisions.designs.title">Chitroghor Designs</h4>
+              <p data-key="divisions.designs.desc">Brand systems, logos, and visual identity solutions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="card">
+          <strong class="small">Selected Project</strong>
+          <div id="featuredProject" style="margin-top:8px;">
+            <div class="slide" id="featuredSlide" style="background-image:url(''); min-height:140px">
+              <div class="meta">
+                <div data-key="featured.title">Project Title</div>
+                <div style="font-size:12px; opacity:0.9" data-key="featured.category">Category</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong class="small">Quick Links</strong>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn" onclick="scrollToId('services')">Services</button>
+            <button class="btn" onclick="scrollToId('blog')">Blog</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT + SERVICES -->
+    <section class="split" id="about">
+      <div class="about card">
+        <h3 data-key="about.headline">A Creator Shaped by Curiosity, Craft, and Discipline</h3>
+        <p data-key="about.text">I build thoughtful visual experiences that blend artistic vision with technical refinement. My journey spans design, illustration, research writing, and conceptual storytelling. Every project begins with a deep understanding of the idea, followed by structured exploration, precision-driven development, and a polished final outcome.</p>
+        <div class="quote">"Research → Concept → Draft → Refinement → Final Delivery"</div>
+      </div>
+
+      <div class="services card" id="services">
+        <h3 data-key="services.headline">What I Can Create for You</h3>
+        <div class="services-grid" id="servicesGrid">
+          <div class="service-card">
+            <h5 data-key="services.branding.title">Design & Branding</h5>
+            <p data-key="services.branding.desc">Visual identities, logo systems, brand guides, typography design, layout structures.</p>
+          </div>
+          <div class="service-card">
+            <h5 data-key="services.illustration.title">Illustration & Creative Art</h5>
+            <p data-key="services.illustration.desc">Character design, concept art, digital painting, comic frames, cover artwork.</p>
+          </div>
+          <div class="service-card">
+            <h5 data-key="services.visuals.title">Visual Production</h5>
+            <p data-key="services.visuals.desc">Cinematic prompt-crafting, video concepts, motion sequences, storyboard visualization.</p>
+          </div>
+          <div class="service-card">
+            <h5 data-key="services.writing.title">Writing & Research</h5>
+            <p data-key="services.writing.desc">Creative writing, story development, research content support, script structuring.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="card" id="portfolio">
+      <h3 data-key="portfolio.headline">Work That Reflects Craft and Purpose</h3>
+      <p data-key="portfolio.desc">Explore a curated gallery of completed projects across design, illustration, and visual production. Each piece reflects a unique creative process.</p>
+
+      <div class="portfolio-grid" id="portfolioGrid" style="margin-top:12px">
+        <!-- JS will inject projects -->
+      </div>
+    </section>
+
+    <!-- DIVISIONS -->
+    <section class="card" id="divisions">
+      <h3 data-key="divisions.headline">Our Divisions</h3>
+      <p data-key="divisions.desc">Three focused studios under one creative umbrella, each tailored to a different facet of visual storytelling.</p>
+
+      <div class="sub-grid" style="margin-top:12px">
+        <div class="sub">
+          <h4 data-key="divisions.visuals.title">Chitroghor Visuals</h4>
+          <p data-key="divisions.visuals.long">A space dedicated to cinematic ideas, dynamic compositions, and visually rich storytelling frames. Concept videos, AI-assisted sequences, and experimental motion studies live here.</p>
+        </div>
+        <div class="sub">
+          <h4 data-key="divisions.ateliers.title">Chitroghor Ateliers</h4>
+          <p data-key="divisions.ateliers.long">Hand-crafted art--sketches, characters, illustrations, and experimental artworks driven by attention to form and texture.</p>
+        </div>
+        <div class="sub">
+          <h4 data-key="divisions.designs.title">Chitroghor Designs</h4>
+          <p data-key="divisions.designs.long">Branding and graphic systems: logos, identity guidelines, layout design, and visual coherence for brands and projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG + TESTIMONIALS -->
+    <section class="split" id="blog">
+      <div class="card">
+        <h3 data-key="blog.headline">Insights, Ideas & Creative Experiments</h3>
+        <div class="cards-row" id="blogRow" style="margin-top:12px">
+          <!-- blog cards injected -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-key="testimonials.headline">What Clients Say</h3>
+        <div id="testimonialsRow" style="margin-top:12px">
+          <!-- testimonials injected -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card" id="contact">
+      <h3 data-key="contact.headline">Let's Build Something Meaningful</h3>
+      <p data-key="contact.subtext">Reach out for freelance work, collaborations, creative consulting, or project discussions. I respond quickly and value clear, constructive communication.</p>
+
+      <div class="contact" style="margin-top:12px">
+        <form onsubmit="alert('Demo: form submission blocked. Replace with your backend.'); return false;">
+          <input type="text" id="inputName" placeholder="Your name" />
+          <input type="email" id="inputEmail" placeholder="Your email" />
+          <textarea id="inputMessage" placeholder="Tell me about your project"></textarea>
+          <div style="display:flex; gap:8px">
+            <button class="btn accent" type="submit">Send Message</button>
+            <button class="btn" type="button" onclick="fillDemo()">Fill demo</button>
+          </div>
+        </form>
+
+        <aside class="card">
+          <strong>Email</strong>
+          <div class="small" id="contactEmail">hello@chitroghor.example</div>
+          <strong style="margin-top:10px; display:block">Social</strong>
+          <div class="small" id="contactSocial">@chitroghor</div>
+          <div style="margin-top:12px"><small class="small">Available for freelance, collaborations & consulting.</small></div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div><span class="logo-mark">Chitroghor</span> -- <span class="small" data-key="footer.tagline">Crafting Visual Stories with Precision and Imagination</span></div>
+      <div class="small">© <span id="year"></span> Chitroghor. All rights reserved.</div>
+    </footer>
+  </main>
+</div>
+
+<!-- EDITOR PANEL -->
+<div id="editor" aria-hidden="true">
+  <h3>Editor</h3>
+  <div id="editorContent"></div>
+  <div class="editor-controls">
+    <button class="btn" id="closeEditor">Close</button>
+    <button class="btn accent" id="applyEditor">Apply</button>
+    <button class="btn" id="copyJSON">Export JSON</button>
+  </div>
+  <div style="margin-top:10px" class="small">Tip: Edit values and click <strong>Apply</strong> to update the page. Use <strong>Export JSON</strong> to copy the configuration.</div>
+</div>
+
+<script>
+/* ================================
+   SITE CONFIGURATION OBJECT
+   Edit this object or use the Editor UI.
+   All visible content and images map to keys here.
+   ================================ */
+const siteData = {
+  nav: { home: "Home", about: "About", services: "Services", portfolio: "Portfolio", divisions: "Divisions", blog: "Blog", contact: "Contact" },
+  brand: { name: "Chitroghor", tagline: "Crafting Visual Stories with Precision and Imagination" },
+
+  hero: { headline: "Crafting Visual Stories with Precision and Imagination", subtext: "A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences." },
+
+  divisions: {
+    visuals: {
+      title: "Chitroghor Visuals",
+      desc: "Cinematic concepts, motion-driven storytelling, and visual sequences.",
+      long: "A space dedicated to cinematic ideas, dynamic compositions, and visually rich storytelling frames.",
+      img: "https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b2f9b" // small icon / thumbnail
+    },
+    ateliers: {
+      title: "Chitroghor Ateliers",
+      desc: "Hand-crafted illustrations, sketch studies, and character art.",
+      long: "Hand-crafted art--sketches, characters, illustrations, and experimental artworks driven by attention to form and texture.",
+      img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=5a1f6a"
+    },
+    designs: {
+      title: "Chitroghor Designs",
+      desc: "Brand systems, logos, and visual identity solutions.",
+      long: "Branding and graphic systems: logos, identity guidelines, layout design, and visual coherence for brands and projects.",
+      img: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=04b9"
+    }
+  },
+
+  featured: {
+    title: "Dawn Sequence -- Short Film Concept",
+    category: "Visual Production",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a5b4a"
+  },
+
+  about: { headline: "A Creator Shaped by Curiosity, Craft, and Discipline", text: "I build thoughtful visual experiences that blend artistic vision with technical refinement. My journey spans design, illustration, research writing, and conceptual storytelling. Every project begins with a deep understanding of the idea, followed by structured exploration, precision-driven development, and a polished final outcome." },
+
+  services: {
+    headline: "What I Can Create for You",
+    branding: { title: "Design & Branding", desc: "Visual identities, logo systems, brand guides, typography design, layout structures." },
+    illustration: { title: "Illustration & Creative Art", desc: "Character design, concept art, digital painting, comic frames, cover artwork." },
+    visuals: { title: "Visual Production", desc: "Cinematic prompt-crafting, video concepts, motion sequences, storyboard visualization." },
+    writing: { title: "Writing & Research", desc: "Creative writing, story development, research content support, script structuring." }
+  },
+
+  portfolio: {
+    headline: "Work That Reflects Craft and Purpose",
+    desc: "Explore a curated gallery of completed projects across design, illustration, and visual production. Each piece reflects a unique creative process.",
+    projects: [
+      { title: "Poster Series -- Folio", category: "Design", image: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=04b9" },
+      { title: "Character Study -- Mira", category: "Illustration", image: "https://images.unsplash.com/photo-1549887534-6cf5a2f1b4a1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1c6a" },
+      { title: "Short Film Concept", category: "Visuals", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a5b4a" },
+      { title: "Book Cover -- 'The Quiet Sea'", category: "Design", image: "https://images.unsplash.com/photo-1526318472351-c75fcf070d8f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=aa3a" }
+    ]
+  },
+
+  blog: {
+    headline: "Insights, Ideas & Creative Experiments",
+    posts: [
+      { title: "Designing a Brand System -- Process", excerpt: "A step-by-step look into building a coherent visual identity.", image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b5b" },
+      { title: "From Sketch to Frame", excerpt: "How sketches inform cinematic composition.", image: "https://images.unsplash.com/photo-1498575207490-8b6acb5f0b9f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3df2" }
+    ]
+  },
+
+  testimonials: {
+    headline: "What Clients Say",
+    items: [
+      { name: "A. Roy", role: "Creative Director", quote: "The team delivered concepts that transformed our campaign story." },
+      { name: "M. Singh", role: "Author", quote: "Design work was thoughtful, original and delivered on time." }
+    ]
+  },
+
+  contact: {
+    headline: "Let's Build Something Meaningful",
+    subtext: "Reach out for freelance work, collaborations, creative consulting, or project discussions. I respond quickly and value clear, constructive communication.",
+    email: "hello@chitroghor.example",
+    social: "@chitroghor"
+  },
+
+  footer: {
+    tagline: "Crafting Visual Stories with Precision and Imagination"
+  }
+};
+
+/* ============================================
+   Utility: simple deep-get / deep-set for keys like "divisions.visuals.title"
+   ============================================ */
+function deepGet(obj, path){
+  if(!path) return undefined;
+  const parts = path.split('.');
+  return parts.reduce((o,k)=> (o && k in o) ? o[k] : undefined, obj);
+}
+function deepSet(obj, path, value){
+  const parts = path.split('.');
+  const last = parts.pop();
+  let cur = obj;
+  for(const p of parts){
+    if(!(p in cur)) cur[p] = {};
+    cur = cur[p];
+  }
+  cur[last] = value;
+}
+
+/* ===========================
+   Populate DOM from siteData
+   =========================== */
+function bindContent(){
+  // simple mapping: elements with data-key set innerText; data-key-img set src
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const key = el.getAttribute('data-key');
+    const val = deepGet(siteData, key);
+    if(val !== undefined) el.textContent = val;
+  });
+  document.querySelectorAll('[data-key-img]').forEach(el=>{
+    const key = el.getAttribute('data-key-img');
+    const val = deepGet(siteData, key);
+    if(val) el.src = val;
+  });
+
+  // brand
+  document.getElementById('brandName').textContent = siteData.brand.name;
+  document.getElementById('brandTagline').textContent = siteData.brand.tagline;
+  // featured
+  const featImage = deepGet(siteData,'featured.image') || '';
+  document.getElementById('featuredSlide').style.backgroundImage = `url('${featImage}')`;
+  document.querySelectorAll('#featuredSlide [data-key]').forEach(el=>{
+    const k = el.getAttribute('data-key');
+    const v = deepGet(siteData, k);
+    if(v) el.textContent = v;
+  });
+  // portfolio
+  const pg = document.getElementById('portfolioGrid');
+  pg.innerHTML = '';
+  (siteData.portfolio.projects || []).forEach(proj=>{
+    const d = document.createElement('div');
+    d.className = 'project';
+    d.style.backgroundImage = `url('${proj.image}')`;
+    d.innerHTML = `<div class="overlay"><div style="font-weight:700">${proj.title}</div><div style="font-size:12px">${proj.category}</div></div>`;
+    pg.appendChild(d);
+  });
+  // blog
+  const br = document.getElementById('blogRow'); br.innerHTML='';
+  (siteData.blog.posts||[]).forEach(post=>{
+    const c = document.createElement('div'); c.className='blog-card';
+    c.innerHTML = `<strong>${post.title}</strong><div class="small" style="margin-top:6px">${post.excerpt}</div>`;
+    br.appendChild(c);
+  });
+  // testimonials
+  const tr = document.getElementById('testimonialsRow'); tr.innerHTML='';
+  (siteData.testimonials.items||[]).forEach(t=>{
+    const el = document.createElement('div'); el.className='card'; el.style.marginBottom='8px';
+    el.innerHTML = `<strong>${t.name}</strong><div class="small">${t.role}</div><div style="margin-top:6px">${t.quote}</div>`;
+    tr.appendChild(el);
+  });
+
+  // contact sidebar
+  document.getElementById('contactEmail').textContent = siteData.contact.email;
+  document.getElementById('contactSocial').textContent = siteData.contact.social;
+
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+}
+bindContent();
+
+/* ===========================
+   Editor: build fields from siteData
+   =========================== */
+const editorEl = document.getElementById('editor');
+const editorContent = document.getElementById('editorContent');
+
+function buildEditor(){
+  editorContent.innerHTML = '';
+  // flatten keys
+  function flatten(obj, prefix=''){
+    let out = [];
+    for(const k of Object.keys(obj)){
+      const val = obj[k];
+      const path = prefix ? `${prefix}.${k}` : k;
+      if(val && typeof val === 'object' && !Array.isArray(val)){
+        out = out.concat(flatten(val, path));
+      } else {
+        out.push({key: path, value: val});
+      }
+    }
+    return out;
+  }
+  const flat = flatten(siteData);
+  flat.forEach(item=>{
+    const row = document.createElement('div'); row.className='editor-row';
+    const label = document.createElement('label'); label.style.width='36%'; label.style.fontSize='12px'; label.style.color='#bfc6cc';
+    label.textContent = item.key;
+    const inputType = typeof item.value === 'string' && item.value.length > 120 ? 'textarea' : 'input';
+    if(inputType === 'input'){
+      const input = document.createElement('input'); input.type='text'; input.value = item.value || '';
+      input.dataset.key = item.key;
+      row.appendChild(label);
+      row.appendChild(input);
+      editorContent.appendChild(row);
+    } else {
+      const ta = document.createElement('textarea'); ta.value = item.value || ''; ta.dataset.key = item.key; ta.style.minHeight='70px';
+      row.appendChild(label); row.appendChild(ta);
+      editorContent.appendChild(row);
+    }
+  });
+}
+
+/* Editor controls */
+document.getElementById('toggleEditorBtn').addEventListener('click', ()=>{
+  editorEl.style.display = editorEl.style.display === 'block' ? 'none' : 'block';
+  buildEditor();
+});
+document.getElementById('closeEditor').addEventListener('click', ()=> editorEl.style.display='none');
+
+document.getElementById('applyEditor').addEventListener('click', ()=>{
+  // read inputs and update siteData
+  editorContent.querySelectorAll('[data-key]').forEach(inp=>{
+    const k = inp.dataset.key;
+    const v = inp.value;
+    // try to parse JSON for arrays/objects
+    if(v.trim().startsWith('{') || v.trim().startsWith('[')){
+      try{ deepSet(siteData, k, JSON.parse(v)); } catch(e){ deepSet(siteData, k, v); }
+    } else {
+      deepSet(siteData, k, v);
+    }
+  });
+  bindContent();
+  alert('Applied changes to page. Use Export JSON to copy configuration.');
+});
+
+/* Export JSON */
+document.getElementById('copyJSON').addEventListener('click', ()=> {
+  const text = JSON.stringify(siteData, null, 2);
+  navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
+    alert('siteData JSON copied to clipboard.');
+  }, ()=> {
+    // fallback
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    alert('Copied (fallback).');
+  });
+});
+
+/* Export JSON button outside as well */
+document.getElementById('exportJSON').addEventListener('click', ()=>{
+  const text = JSON.stringify(siteData, null, 2);
+  navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
+    alert('siteData JSON copied to clipboard.');
+  }).catch(()=>{ const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('Copied JSON (fallback).')});
+});
+
+/* Utilities */
+function scrollToId(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function fillDemo(){ document.getElementById('inputName').value = "Boss"; document.getElementById('inputEmail').value = "boss@example.com"; document.getElementById('inputMessage').value = "I'd like to discuss a brand identity project."; }
+
+/* Initial image filling for small icons if defined */
+document.querySelectorAll('[data-key-img]').forEach(imgEl=>{
+  const key = imgEl.getAttribute('data-key-img');
+  const val = deepGet(siteData, key);
+  if(val) imgEl.src = val;
+});
+
+/* Ensure editor shows accurate keys on open */
+document.getElementById('toggleEditorBtn').addEventListener('click', ()=> { setTimeout(buildEditor, 50); });
+
+</script>
+</body>
+</html><style>/* -------- GLOBAL STYLES -------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f7f7f7;
+    color: #222;
+    line-height: 1.6;
+}
+
+/* Container and sections */
+.section-container {
+    padding: 80px 10%;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+p {
+    opacity: 0.85;
+}
+
+/* -------- NAVBAR -------- */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    z-index: 999;
+}
+
+.navbar .logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin-left: 30px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #c09a2d;
+}
+
+/* -------- HERO SECTION -------- */
+#hero {
+    height: 100vh;
+    background: url('images/hero.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    color: #fff;
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: 60px;
+    text-shadow: 0px 5px 20px rgba(0,0,0,0.6);
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #c09a2d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: #a48123;
+}
+
+/* -------- BRAND INTRO -------- */
+#intro .intro-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.intro-card {
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.intro-card:hover {
+    transform: translateY(-5px);
+}
+
+/* -------- FEATURED WORKS -------- */
+#featured .work-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.work-slide {
+    min-width: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+}
+
+.work-slide img {
+    width: 100%;
+}
+
+/* -------- ABOUT SECTION -------- */
+.about-section {
+    display: flex;
+    gap: 90px;
+    align-items: center;
+}
+
+.about-section img {
+    width: 40%;
+    border-radius: 10px;
+}
+
+.about-content {
+    width: 60%;
+}
+
+/* -------- SERVICES -------- */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.service-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+/* -------- TESTIMONIALS -------- */
+.testimonial-item {
+    background: #fff;
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.07);
+}
+
+/* -------- CONTACT -------- */
+.contact-form {
+    max-width: 500px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.contact-form button {
+    padding: 12px 25px;
+    background: #c09a2d;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background: #a48123;
+}
+
+/* -------- FOOTER -------- */
+footer {
+    background: #111;
+    color: #ddd;
+    padding: 30px 10%;
+    text-align: center;
+    margin-top: 50px;
+}</style><script>// Smooth Scrolling for Navbar Links
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        window.scrollTo({
+            top: target.offsetTop - 60,
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Simple Auto Slider for Featured Works
+const slider = document.querySelector('.work-slider');
+let scrollAmount = 0;
+
+setInterval(() => {
+    scrollAmount += 350;
+    if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+        scrollAmount = 0;
+    }
+    slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
+}, 3000);
+
+// Fade-in Animations on Scroll
+const fadeElements = document.querySelectorAll(".section-container");
+
+function checkFade() {
+    fadeElements.forEach(el => {
+        const position = el.getBoundingClientRect().top;
+        const screenHeight = window.innerHeight;
+        if (position < screenHeight - 100) {
+            el.style.opacity = 1;
+            el.style.transform = "translateY(0px)";
+        }
+    });
+}
+
+window.addEventListener("scroll", checkFade);
+window.addEventListener("load", checkFade);</script>
