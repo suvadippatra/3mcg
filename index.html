@@ -1,10 +1,10 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!doctype html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ত্রিমূর্তি চিত্রঘর (Trimurti Chitroghor)</title>
-<meta name="description" content="Customizable website UI for Chitroghor. Edit texts and images using the Editor panel."/>
+<meta name="description" content="Customizable website UI for Chitroghor."/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,17 +19,14 @@
     --ff-serif: Georgia, "Times New Roman", serif;
   }
   
-  /* 3. ADDED CUSTOM CLASS FOR BANGLA TEXT */
   .bn { font-family: 'Tiro Bangla', serif; font-weight: 400; }
 
-  /* 4. ADDED STYLES FOR SOCIAL ICONS */
   .social-list{display:flex; gap:12px; align-items:center; list-style:none; padding:0; margin:0}
   .social-list a{display:flex; align-items:center; justify-content:center; color:var(--muted); transition:color 0.2s}
   .social-list a:hover{color:var(--accent)}
   .social-list svg{width:18px; height:18px; fill:currentColor}
   footer .social-list{justify-content:center; margin-top:5px; width:100%}
 
-  /* Basic Reset */
   *{box-sizing:border-box} html,body{height:100%}
   body{
     margin:0; font-family:var(--ff-sans); background:linear-gradient(180deg,#050506 0%, #0b0d0f 100%); color:var(--text);
@@ -39,7 +36,6 @@
   header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px}
   .brand{display:flex; align-items:center; gap:14px}
   
-  /* Updated logo style to support image */
   .brand .logo{
     width:58px; height:58px; border-radius:10px; display:flex; align-items:center; justify-content:center;
     background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.12)); border:1px solid rgba(255,255,255,0.03);
@@ -57,7 +53,7 @@
   }
   .btn.accent{background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none}
   main{display:flex; flex-direction:column; gap:28px}
-  /* Hero */
+  
   .hero{
     display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:center;
     padding:34px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03)
@@ -68,41 +64,41 @@
   .hero-ctas .btn{padding:12px 18px}
   .hero-right{display:flex; flex-direction:column; gap:10px}
   .card{background:var(--glass); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02)}
-  /* intro cards */
+  
   .intro-cards{display:flex; gap:12px; margin-top:12px}
   .intro-card{flex:1; padding:14px; border-radius:10px; display:flex; gap:12px; align-items:flex-start}
   .intro-card img{width:48px; height:48px; border-radius:8px; object-fit:cover}
   .intro-card h4{margin:0;font-size:16px}
   .intro-card p{margin:6px 0 0 0;color:var(--muted); font-size:13px}
-  /* featured slider (simple) */
+  
   .slider{display:flex; gap:12px; overflow:hidden; align-items:center}
   .slide{min-width:280px; height:160px; border-radius:10px; background-size:cover; background-position:center; position:relative; flex-shrink:0}
   .slide .meta{position:absolute; left:12px; bottom:12px; color:white; background:rgba(0,0,0,0.35); padding:8px 10px; border-radius:8px; font-size:13px}
-  /* About & Services split */
+  
   .split{display:grid; grid-template-columns: 1fr 1fr; gap:20px}
   .about .quote{font-style:italic; color:var(--muted); margin-top:12px}
   .services-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
   .service-card{padding:16px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02)}
   .service-card h5{margin:0 0 8px 0}
   .service-card p{margin:0;color:var(--muted); font-size:13px}
-  /* portfolio */
+  
   .portfolio-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
   .project{border-radius:10px; overflow:hidden; height:180px; background-size:cover; background-position:center; position:relative; display:flex; align-items:flex-end}
   .project .overlay{background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6)); width:100%; padding:12px; color:white}
-  /* subdivisions */
+  
   .sub-grid{display:flex; gap:12px}
   .sub{flex:1; padding:16px; border-radius:10px; background:rgba(0,0,0,0.12)}
-  /* blog & testimonials */
+  
   .cards-row{display:flex; gap:12px}
   .blog-card{flex:1; padding:12px; border-radius:10px; background:var(--glass)}
-  /* contact */
+  
   .contact{display:grid; grid-template-columns:1fr 320px; gap:18px}
   .contact form{display:flex; flex-direction:column; gap:12px}
   input,textarea{background:transparent; border:1px solid rgba(255,255,255,0.06); padding:10px; border-radius:8px; color:var(--text)}
   textarea{min-height:120px; resize:vertical}
-  /* Updated Footer */
+  
   footer{margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; align-items:center}
-  /* small screens */
+  
   @media (max-width:920px){
     .hero{grid-template-columns: 1fr; padding:20px}
     .site{padding:16px}
@@ -110,7 +106,8 @@
     .contact{grid-template-columns:1fr}
     nav ul{display:none}
   }
-  /* editor panel */
+  
+  /* EDITOR PANEL STYLES */
   #editor {
     position:fixed; right:18px; top:80px; width:360px; max-height:76vh; overflow:auto; background:#0b0c0d; border:1px solid rgba(255,255,255,0.04);
     border-radius:12px; padding:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); z-index:9999; display:none;
@@ -121,7 +118,9 @@
   .editor-controls{display:flex; gap:8px; margin-top:10px}
   .small{font-size:12px; color:var(--muted)}
   .logo-mark{font-weight:700; letter-spacing:0.6px}
-  .hidden{display:none}
+  
+  /* HIDE EDIT BTN BY DEFAULT */
+  #toggleEditorBtn { display: none; }
 </style>
 </head>
 <body>
@@ -130,7 +129,7 @@
   <header>
     <div class="brand">
       <div class="logo" aria-hidden="true">
-        <img src="logo.png" alt="Trimurti Logo" style="width:100%; height:100%; object-fit:cover;">
+        <img src="logo.png" alt="Trimurti Logo" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';this.parentElement.style.background='#222';this.parentElement.textContent='TC'">
       </div>
       <div>
         <h1 id="brandName" class="bn">ত্রিমূর্তি চিত্রঘর</h1>
@@ -160,8 +159,8 @@
         <a href="https://pinterest.com/" target="_blank" title="Pinterest"><svg viewBox="0 0 24 24"><path d="M9.04 21.54C10 21.83 10.97 22 12 22a10 10 0 0 0 10-10A10 10 0 0 0 12 2 10 10 0 0 0 2 12c0 4.25 2.67 7.9 6.44 9.34-.09-.79-.17-2 .04-2.88l1.22-5.2c-.3-.63-.48-1.46-.48-2.32 0-2.18 1.25-3.8 2.82-3.8 1.33 0 1.97 1 1.97 2.2 0 1.34-.84 3.35-1.28 5.21-.37 1.56.78 2.83 2.31 2.83 2.78 0 4.92-2.95 4.92-7.18 0-3.76-2.69-6.38-6.52-6.38-4.75 0-7.53 3.56-7.53 7.26 0 1.44.55 2.97 1.24 3.8.14.16.16.3.11.54l-.46 1.9c-.07.3-.24.37-.55.22-2.05-.96-3.33-3.95-3.33-6.36 0-5.18 3.75-9.94 10.8-9.94 5.67 0 10.08 4.05 10.08 9.45 0 5.64-3.53 10.18-8.43 10.18-1.65 0-3.2-.86-3.73-1.87l-1.01 3.86c-.37 1.43-1.37 3.22-2.04 4.32z"/></svg></a>
       </div>
 
+      <!-- Hidden Button -->
       <button class="btn" id="toggleEditorBtn" title="Open editor">Edit</button>
-      <button class="btn accent" id="exportJSON" style="display:none">Export JSON</button>
     </div>
   </header>
 
@@ -374,15 +373,12 @@
 <script>
 /* ================================
    SITE CONFIGURATION OBJECT
-   11. UPDATED VALUES HERE TO MATCH YOUR BANGLA HEADINGS
    ================================ */
 const siteData = {
   nav: { home: "Home", about: "About", services: "Services", portfolio: "Portfolio", divisions: "Divisions", blog: "Blog", contact: "Contact" },
   
-  // Updated Name to Bangla
   brand: { name: "ত্রিমূর্তি চিত্রঘর", tagline: "Crafting Visual Stories with Precision and Imagination" },
 
-  // Updated Headline to Bangla
   hero: { headline: "সৃজনশীলতা এবং কল্পনার সাথে দৃশ্যমান গল্প তৈরি করা", subtext: "A creative studio blending design, illustration, and cinematic storytelling to build meaningful visual experiences." },
 
   divisions: {
@@ -462,7 +458,7 @@ const siteData = {
 };
 
 /* ============================================
-   Utility: simple deep-get / deep-set for keys like "divisions.visuals.title"
+   Utility functions
    ============================================ */
 function deepGet(obj, path){
   if(!path) return undefined;
@@ -527,14 +523,12 @@ function bindContent(){
     tr.appendChild(el);
   });
 
-  // REMOVED AUTOMATIC OVERWRITE FOR CONTACT SIDEBAR SO YOUR CUSTOM LINKS STAY
-
   document.getElementById('year').textContent = new Date().getFullYear();
 }
 bindContent();
 
 /* ===========================
-   Editor: build fields from siteData
+   Editor Logic
    =========================== */
 const editorEl = document.getElementById('editor');
 const editorContent = document.getElementById('editorContent');
@@ -604,13 +598,6 @@ document.getElementById('copyJSON').addEventListener('click', ()=> {
   });
 });
 
-document.getElementById('exportJSON').addEventListener('click', ()=>{
-  const text = JSON.stringify(siteData, null, 2);
-  navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
-    alert('siteData JSON copied to clipboard.');
-  }).catch(()=>{ const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('Copied JSON (fallback).')});
-});
-
 function scrollToId(id){
   const el = document.getElementById(id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
@@ -623,8 +610,13 @@ document.querySelectorAll('[data-key-img]').forEach(imgEl=>{
   if(val) imgEl.src = val;
 });
 
-document.getElementById('toggleEditorBtn').addEventListener('click', ()=> { setTimeout(buildEditor, 50); });
+// ADMIN CHECK: Only show edit button if URL contains ?admin=true
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('admin') === 'true') {
+  document.getElementById('toggleEditorBtn').style.display = 'block';
+}
 
 </script>
 </body>
 </html>
+
