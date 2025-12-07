@@ -37,10 +37,11 @@
   .brand{display:flex; align-items:center; gap:14px}
   
   .brand .logo{
-    width:58px; height:58px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.12)); border:1px solid rgba(255,255,255,0.03);
-    overflow: hidden; padding: 0;
-  }
+  /* ... keep width/height ... */
+  background: transparent; 
+  border: none;
+  /* ... keep overflow/padding ... */
+}
   
   .brand h1{font-size:18px; margin:0; letter-spacing:0.2px}
   nav ul{list-style:none; display:flex; gap:16px; margin:0; padding:0; align-items:center}
@@ -129,7 +130,7 @@
   <header>
     <div class="brand">
       <div class="logo" aria-hidden="true">
-        <img src="logo.png" alt="Trimurti Logo" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';this.parentElement.style.background='#222';this.parentElement.textContent='TC'">
+        <img src="logo.png" alt="Trimurti Logo" style="width:100%; height:100%; object-fit:contain;" onerror="this.style.display='none';this.parentElement.style.background='#222';this.parentElement.textContent='TC'">
       </div>
       <div>
         <h1 id="brandName" class="bn">ত্রিমূর্তি চিত্রঘর</h1>
