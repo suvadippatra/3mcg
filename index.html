@@ -299,7 +299,7 @@
 
         <section class="card" id="contact">
       <h3 data-key="contact.headline">Let's Build Something Meaningful</h3>
-      <p data-key="contact.subtext">Reach out for freelance work, collaborations, creative consulting, or project discussions. I respond quickly and value clear, constructive communication.</p>
+      <p data-key="contact.subtext">Reach out for freelance work, collaborations, creative consulting, or project discussions.</p>
 
       <div class="contact" style="margin-top:12px">
         
@@ -320,8 +320,8 @@
           
             <strong style="margin-top:10px; display:block">Phone</strong>
             <div class="small">
-              <a href="tel:+9198760000" style="color:inherit; text-decoration:none;">
-                +91 98765 43210
+              <a href="tel:+91987600000" style="color:inherit; text-decoration:none;">
+                +91 98760 00000
               </a>
             </div>
           
@@ -442,7 +442,7 @@ const siteData = {
 
   contact: {
     headline: "Let's Build Something Meaningful",
-    subtext: "Reach out for freelance work, collaborations, creative consulting, or project discussions. I respond quickly and value clear, constructive communication.",
+    subtext: "Reach out for freelance work, collaborations, creative consulting, or project discussions.",
     email: "hello@chitroghor.example",
     social: "@chitroghor"
   },
@@ -605,11 +605,10 @@ document.querySelectorAll('[data-key-img]').forEach(imgEl=>{
   if(val) imgEl.src = val;
 });
 
-// ADMIN CHECK: Only show edit button if URL contains ?admin=true
-const urlParams = new URLSearchParams(window.location.search);
-if(urlParams.get('admin') === 'true') {
-  document.getElementById('toggleEditorBtn').style.display = 'block';
-}
+
+
+
+
 
 </script>
 </body>
